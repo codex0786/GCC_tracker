@@ -7,8 +7,9 @@ Decision-support prototype for Global Capability Centre (GCC) expansion in India
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm test           # engine + export tests
+npm test           # engine, data-schema and export tests
 npm run build      # static production build
+npm run test:e2e   # Playwright browser tests (after build; first run: npx playwright install chromium)
 ```
 
 ## What it does
@@ -34,7 +35,7 @@ Scenario (plain JSON, in URL)
    montecarlo.ts  seeded paths, run in src/workers/montecarlo.worker.ts
 ```
 
-- `src/data/` holds every benchmark with its source, method and as-of quarter; the UI tooltips read from it.
+- `src/data/` holds every benchmark with its source, method and as-of quarter; the UI tooltips read from it. `src/data/schema.ts` (Zod) validates ranges and fails CI if an engine attribute has no cited source.
 - `src/data/taxRules.ts` carries the legal basis and effective date for each rule. Items flagged `verify` may have changed in recent Finance Acts.
 - `src/data/signals.ts` is a curated analyst feed. Each signal is a quantified input shock, not a live data source.
 

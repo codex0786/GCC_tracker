@@ -7,12 +7,16 @@ export type CriterionId = (typeof CRITERIA)[number];
 
 export type RentMode = "market" | "triennial" | "annual9";
 
+export const STAGES = ["day1", "y3", "y5"] as const;
+export type Stage = (typeof STAGES)[number];
+export const STAGE_LABEL: Record<Stage, string> = { day1: "Day 1", y3: "Year 3", y5: "Year 5" };
+
 /** Everything the user controls. Plain JSON so it can live in the URL. */
 export interface Scenario {
   fn: FunctionId;
   headcount: { day1: number; y3: number; y5: number };
-  /** Seniority mix, percent by band (sums to 100) */
-  mix: Record<Band, number>;
+  /** Seniority mix at each headcount anchor, percent by band (each sums to 100) */
+  mix: Record<Stage, Record<Band, number>>;
   /** Priority weights, percent (sums to 100) */
   weights: Record<CriterionId, number>;
   marketId: MarketId;
@@ -45,7 +49,12 @@ export interface Scenario {
 export const DEFAULT_SCENARIO: Scenario = {
   fn: "genai",
   headcount: { day1: 80, y3: 450, y5: 800 },
-  mix: { "L1-L2": 35, "L3-L4": 40, "L5-L6": 20, "L7+": 5 },
+  // Leadership is hired first, so the launch team is senior-heavy and the pyramid widens as the centre scales.
+  mix: {
+    day1: { "L1-L2": 20, "L3-L4": 40, "L5-L6": 30, "L7+": 10 },
+    y3: { "L1-L2": 35, "L3-L4": 40, "L5-L6": 20, "L7+": 5 },
+    y5: { "L1-L2": 42, "L3-L4": 38, "L5-L6": 16, "L7+": 4 },
+  },
   weights: { cost: 25, seniorTalent: 35, attrition: 10, connectivity: 15, incentives: 15 },
   marketId: "hyd-fd",
   reModel: "managed",
@@ -137,12 +146,9 @@ export function hasStress(s: Scenario) {
 export type Anchors = Record<Band, { day1: number; y3: number; y5: number }>;
 
 export function anchorsFromScenario(s: Scenario): Anchors {
-  const total = BANDS.reduce((a, b) => a + s.mix[b], 0) || 1;
+  const share = (stage: Stage, b: Band) => s.mix[stage][b] / (BANDS.reduce((a, x) => a + s.mix[stage][x], 0) || 1);
   return Object.fromEntries(
-    BANDS.map((b) => {
-      const f = s.mix[b] / total;
-      return [b, { day1: s.headcount.day1 * f, y3: s.headcount.y3 * f, y5: s.headcount.y5 * f }];
-    }),
+    BANDS.map((b) => [b, { day1: s.headcount.day1 * share("day1", b), y3: s.headcount.y3 * share("y3", b), y5: s.headcount.y5 * share("y5", b) }]),
   ) as Anchors;
 }
 

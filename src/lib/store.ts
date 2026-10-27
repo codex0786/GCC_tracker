@@ -25,6 +25,8 @@ const encode = (s: Scenario) => btoa(encodeURIComponent(JSON.stringify(s)));
 const decode = (h: string): Scenario | null => {
   try {
     const parsed = JSON.parse(decodeURIComponent(atob(h)));
+    // Links created before the per-stage mix carried a single band record.
+    if (parsed.mix && "L1-L2" in parsed.mix) parsed.mix = { day1: parsed.mix, y3: parsed.mix, y5: parsed.mix };
     return { ...DEFAULT_SCENARIO, ...parsed, stress: { ...DEFAULT_SCENARIO.stress, ...parsed.stress } };
   } catch {
     return null;

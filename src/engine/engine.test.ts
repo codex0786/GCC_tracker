@@ -96,6 +96,14 @@ describe("TCO", () => {
     expect(total(59)).toBeCloseTo(800);
   });
 
+  it("follows the per-stage seniority mix", () => {
+    const a = anchorsFromScenario(DEFAULT_SCENARIO);
+    const m = DEFAULT_SCENARIO.mix;
+    expect(a["L7+"].day1).toBeCloseTo((80 * m.day1["L7+"]) / 100);
+    expect(headcountAt(a, 35, {})["L1-L2"]).toBeCloseTo((450 * m.y3["L1-L2"]) / 100);
+    expect(headcountAt(a, 59, {})["L5-L6"]).toBeCloseTo((800 * m.y5["L5-L6"]) / 100);
+  });
+
   it("India is cheaper than the US and pays back within 5 years", () => {
     const e = evaluate(DEFAULT_SCENARIO);
     const t = e.financials.tco;
@@ -133,5 +141,15 @@ describe("Stress", () => {
     expect(a.npv).toEqual(b.npv);
     expect(a.p10[59]).toBeLessThanOrEqual(a.p50[59]);
     expect(a.p50[59]).toBeLessThanOrEqual(a.p90[59]);
+  });
+});
+
+describe("Lease crossover", () => {
+  it("appears at scale and is absent when managed always wins", () => {
+    const big = evaluate(s({ headcount: { day1: 400, y3: 1500, y5: 2500 } })).reModels;
+    expect(big.crossoverMonth).not.toBeNull();
+    expect(big.crossoverMonth!).toBeLessThanOrEqual(60);
+    const small = evaluate(s({ headcount: { day1: 20, y3: 60, y5: 90 } })).reModels;
+    expect(small.crossoverMonth).toBeNull();
   });
 });

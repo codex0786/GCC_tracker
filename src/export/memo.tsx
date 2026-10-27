@@ -110,7 +110,7 @@ function Memo({ s, e, stressed }: { s: Scenario; e: Evaluation; stressed: boolea
           <Text style={{ fontFamily: "Helvetica-Bold", marginBottom: 3 }}>Recommendation</Text>
           <Text>{ascii(`Anchor in ${e.ranking[0].market.name} (composite score ${e.ranking[0].score.toFixed(1)}/100). Financials modelled for ${e.selected.name} on a ${RE_MODEL_LABEL[s.reModel].toLowerCase()} basis.`)}</Text>
           <Text style={{ marginTop: 3 }}>{ascii(e.hubSpoke.recommendation)}</Text>
-          <Text style={{ marginTop: 3 }}>{ascii(`Real estate: ${RE_MODEL_LABEL[e.reModels.best]} has the lowest 5-yr PV. Zone: ${tax.sez.recommendation}.`)}</Text>
+          <Text style={{ marginTop: 3 }}>{ascii(`Real estate: ${RE_MODEL_LABEL[e.reModels.best]} has the lowest 5-yr PV${e.reModels.crossoverMonth ? `; a warm-shell lease overtakes managed space from month ${e.reModels.crossoverMonth}` : ""}. Zone: ${tax.sez.recommendation}.`)}</Text>
         </View>
 
         <View style={st.kpis}>

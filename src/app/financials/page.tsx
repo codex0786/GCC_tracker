@@ -108,7 +108,17 @@ export default function FinancialsPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-3 text-sm text-muted">
+              <p className="mt-3 text-sm">
+                {re.crossoverMonth === null ? (
+                  <>Over 5 years a warm-shell lease never becomes cheaper than managed space on a cumulative PV basis.</>
+                ) : (
+                  <>
+                    <b>Crossover: month {re.crossoverMonth}.</b> From here the warm-shell lease&apos;s cumulative PV stays below managed space
+                    {re.crossoverMonth === 60 ? " (only once residual fit-out value is credited at exit)" : ""}.
+                  </>
+                )}
+              </p>
+              <p className="mt-1.5 text-sm text-muted">
                 {re.leaseBreakevenHc === null
                   ? "A warm-shell lease does not beat managed space at any realistic scale in this market."
                   : re.leaseBreakevenHc === 0

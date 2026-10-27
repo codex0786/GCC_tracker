@@ -33,7 +33,7 @@ export function Info({ meta }: { meta: Partial<SourceMeta> }) {
       </button>
       <span
         role="tooltip"
-        className="pointer-events-none invisible absolute left-1/2 top-5 z-30 w-72 -translate-x-1/2 rounded-lg border border-line bg-panel p-3 text-left text-xs font-normal leading-relaxed text-ink opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100"
+        className="pointer-events-none absolute left-1/2 top-5 z-30 hidden w-72 max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-lg border border-line bg-panel p-3 text-left text-xs font-normal leading-relaxed text-ink shadow-lg group-hover:block group-focus-within:block"
       >
         {meta.label && <span className="block font-semibold">{meta.label}{meta.unit ? ` (${meta.unit})` : ""}</span>}
         {meta.method && <span className="mt-1 block"><b className="text-muted">Method:</b> {meta.method}</span>}
@@ -47,7 +47,7 @@ export function Info({ meta }: { meta: Partial<SourceMeta> }) {
 export function Kpi({ label, value, sub, info, tone }: { label: string; value: string; sub?: ReactNode; info?: Partial<SourceMeta>; tone?: "good" | "bad" | "warn" }) {
   const color = tone === "good" ? "text-good" : tone === "bad" ? "text-bad" : tone === "warn" ? "text-warn" : "text-ink";
   return (
-    <div className="rounded-xl border border-line bg-panel p-4">
+    <div role="group" aria-label={label} className="rounded-xl border border-line bg-panel p-4">
       <div className="flex items-center gap-1.5 text-xs font-medium text-muted">
         {label}
         {info && <Info meta={info} />}
@@ -68,7 +68,7 @@ export function Slider({ label, value, min, max, step = 1, unit = "", onChange, 
         </span>
         <span className="font-semibold tabular-nums">{format ? format(value) : `${value}${unit}`}</span>
       </div>
-      <input type="range" className="w-full" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
+      <input type="range" aria-label={label} className="w-full" min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} />
     </label>
   );
 }
@@ -77,7 +77,7 @@ export function Select<T extends string>({ label, value, options, onChange }: { 
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-medium text-muted">{label}</span>
-      <select value={value} onChange={(e) => onChange(e.target.value as T)} className="w-full rounded-lg border border-line bg-panel px-2.5 py-2 text-sm focus:border-accent focus:outline-none">
+      <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value as T)} className="w-full rounded-lg border border-line bg-panel px-2.5 py-2 text-sm focus:border-accent focus:outline-none">
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}
@@ -94,6 +94,7 @@ export function NumberField({ label, value, onChange, min = 0, max = 100000 }: {
       <span className="mb-1 block text-xs font-medium text-muted">{label}</span>
       <input
         type="number"
+        aria-label={label}
         inputMode="numeric"
         min={min}
         max={max}
