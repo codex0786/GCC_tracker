@@ -13,6 +13,9 @@ export const MARKET_IDS = [
   "gift-city",
   "coimbatore",
   "kochi",
+  "gurugram",
+  "noida",
+  "mumbai",
 ] as const;
 export type MarketId = (typeof MARKET_IDS)[number];
 

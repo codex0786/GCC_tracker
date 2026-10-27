@@ -3,6 +3,7 @@
 import { useEffect, useMemo } from "react";
 import { create } from "zustand";
 import { evaluate } from "@/engine/evaluate";
+import { MARKET_IDS, type MarketId } from "@/data/types";
 import { DEFAULT_SCENARIO, type Scenario } from "@/engine/scenario";
 
 interface Store {
@@ -33,18 +34,32 @@ const decode = (h: string): Scenario | null => {
   }
 };
 
-/** Keeps the scenario in the URL hash so any view can be shared as a link. */
+const TOOL_PATHS = ["/tools", "/location", "/financials", "/stress-test"];
+export const isToolPath = (path: string) => TOOL_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
+
+/** Keeps the scenario in the URL hash on tool pages so any view can be shared as a link. */
 export function useScenarioUrlSync(path: string) {
   const scenario = useStore((s) => s.scenario);
   const hydrated = useStore((s) => s.hydrated);
   useEffect(() => {
     if (hydrated) return;
     const m = window.location.hash.match(/s=([^&]+)/);
-    const s = m && decode(m[1]);
+    let s = (m && decode(m[1])) || null;
+    // Information pages deep-link into the tools with ?market=<id>.
+    const market = new URLSearchParams(window.location.search).get("market");
+    if (market && (MARKET_IDS as readonly string[]).includes(market)) s = { ...(s ?? useStore.getState().scenario), marketId: market as MarketId };
     useStore.setState({ hydrated: true, ...(s ? { scenario: s } : {}) });
   }, [hydrated]);
+  // Client-side navigation from an information page can also carry ?market=<id>.
   useEffect(() => {
     if (!hydrated) return;
+    const market = new URLSearchParams(window.location.search).get("market");
+    if (market && (MARKET_IDS as readonly string[]).includes(market) && useStore.getState().scenario.marketId !== market) {
+      useStore.getState().set({ marketId: market as MarketId });
+    }
+  }, [hydrated, path]);
+  useEffect(() => {
+    if (!hydrated || !isToolPath(path)) return;
     window.history.replaceState(null, "", `${window.location.pathname}#s=${encode(scenario)}`);
   }, [scenario, hydrated, path]);
 }

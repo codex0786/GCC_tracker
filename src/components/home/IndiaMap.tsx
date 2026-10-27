@@ -31,13 +31,16 @@ const H = (37.6 - 7.5) * K;
 // Label placement avoids the Bengaluru / Chennai cluster.
 const LABEL: Record<MarketId, { dx: number; dy: number; anchor: "start" | "end" }> = {
   "gift-city": { dx: -10, dy: 4, anchor: "end" },
-  "pune-hinjawadi": { dx: -10, dy: 4, anchor: "end" },
+  "pune-hinjawadi": { dx: -8, dy: 12, anchor: "end" },
   "hyd-fd": { dx: 15, dy: 4, anchor: "start" },
   "blr-north": { dx: -12, dy: -10, anchor: "end" },
   "blr-orr": { dx: 12, dy: 20, anchor: "start" },
   "chennai-omr": { dx: 14, dy: 2, anchor: "start" },
   coimbatore: { dx: -10, dy: 2, anchor: "end" },
   kochi: { dx: -10, dy: 8, anchor: "end" },
+  gurugram: { dx: -10, dy: 4, anchor: "end" },
+  noida: { dx: 10, dy: 4, anchor: "start" },
+  mumbai: { dx: -10, dy: -2, anchor: "end" },
 };
 const SHORT: Record<MarketId, string> = {
   "gift-city": "GIFT City",
@@ -48,6 +51,9 @@ const SHORT: Record<MarketId, string> = {
   "chennai-omr": "Chennai OMR",
   coimbatore: "Coimbatore",
   kochi: "Kochi",
+  gurugram: "Gurugram",
+  noida: "Noida",
+  mumbai: "Mumbai",
 };
 
 function arc(a: Market, b: Market) {
@@ -64,17 +70,21 @@ export function IndiaMap({
   selected,
   hubSpoke,
   onSelect,
+  showFlow = true,
+  hint = "Dot size shows the composite score. The pulse marks the leader; click a dot to model it.",
 }: {
   ranking: MarketScore[];
   talent: Record<MarketId, TalentResult>;
   selected: MarketId;
   hubSpoke: HubSpokeResult;
   onSelect: (id: MarketId) => void;
+  showFlow?: boolean;
+  hint?: string;
 }) {
   const reduce = useReducedMotion();
   const [hover, setHover] = useState<MarketId | null>(null);
   const top = ranking[0].market.id;
-  const best = hubSpoke.best;
+  const best = showFlow ? hubSpoke.best : { ...hubSpoke.best, spoke: null };
   const hovered = ranking.find((r) => r.market.id === hover);
   const min = Math.min(...ranking.map((r) => r.score));
   const max = Math.max(...ranking.map((r) => r.score));
@@ -160,7 +170,7 @@ export function IndiaMap({
         ) : (
           <div className="text-muted">
             <div className="font-semibold text-ink">Hover a market</div>
-            Dot size shows the composite score. The pulse marks the leader; click a dot to model it.
+            {hint}
           </div>
         )}
       </div>

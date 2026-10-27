@@ -2,7 +2,7 @@
 
 **Live:** https://gcc-nexus.vercel.app (auto-deploys from `main`)
 
-Decision-support prototype for Global Capability Centre (GCC) expansion in India: site selection, 5-year TCO, talent feasibility, tax strategy and market stress-testing.
+A free, sourced information hub on India's Global Capability Centres (Learn, Markets, Methodology), plus decision tools for site selection, 5-year TCO, talent feasibility, tax strategy and market stress-testing.
 
 ## Run it
 
@@ -14,7 +14,17 @@ npm run build      # static production build
 npm run test:e2e   # Playwright browser tests (after build; first run: npx playwright install chromium)
 ```
 
-## What it does
+## Information hub
+
+| Section | Content |
+|---|---|
+| **Learn** (`/learn`) | Five guides (what a GCC is, why India, operating models, setup roadmap, policy and tax), glossary, FAQ. Content lives in `src/content/` with every claim tied to a dated source in `src/content/sources.ts`. |
+| **Markets** (`/markets`) | Map, comparison table and a profile page for each of 11 micro-markets, each deep-linking into the tools. |
+| **Method** (`/methodology`) | How every score is calculated, benchmark sources, tax rules and limitations. |
+
+All information pages are statically rendered with metadata, a sitemap and robots.txt.
+
+## Decision tools
 
 | Path | Engines | Output |
 |---|---|---|

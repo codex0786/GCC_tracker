@@ -172,3 +172,11 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Content that animates in must still be readable without JavaScript. */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

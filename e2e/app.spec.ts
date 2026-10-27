@@ -2,8 +2,20 @@ import { expect, test, type Page } from "@playwright/test";
 
 const kpi = (page: Page, label: string) => page.getByRole("group", { name: label }).locator(".text-2xl");
 
-test("briefing offers the three decision paths and navigates", async ({ page }) => {
+test("home is an information hub that leads into learning, markets and tools", async ({ page }) => {
   await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("India's Global Capability Centres");
+  await expect(page.getByText("GCCs in India")).toBeVisible();
+  await page.getByRole("link", { name: /Start with the basics/ }).click();
+  await expect(page).toHaveURL(/\/learn\/what-is-a-gcc/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("What is a Global Capability Centre?");
+  await expect(page.getByText("Sources", { exact: true })).toBeVisible();
+  await page.getByRole("link", { name: /Next Why India/ }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Why India?");
+});
+
+test("tools cockpit offers the three decision paths", async ({ page }) => {
+  await page.goto("/tools");
   await expect(page.getByRole("heading", { name: "What decision are you validating today?" })).toBeVisible();
   for (const name of ["Select my optimal location", "Build my 5-year financial model", "Stress-test my current strategy"]) {
     await expect(page.getByRole("heading", { name })).toBeVisible();
@@ -11,6 +23,22 @@ test("briefing offers the three decision paths and navigates", async ({ page }) 
   await page.getByRole("link", { name: /Select my optimal location/ }).click();
   await expect(page).toHaveURL(/\/location/);
   await expect(page.getByRole("heading", { name: "Multi-criteria site selection" })).toBeVisible();
+});
+
+test("city profile deep-links into the TCO model", async ({ page }) => {
+  await page.goto("/markets");
+  await page.getByRole("link", { name: /Noida Expressway/ }).first().click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Noida Expressway");
+  await page.getByRole("link", { name: /Model a GCC here/ }).click();
+  await expect(page).toHaveURL(/\/financials/);
+  await expect(page.getByRole("combobox", { name: "Micro-market" })).toHaveValue("noida");
+});
+
+test("glossary filters terms", async ({ page }) => {
+  await page.goto("/learn/glossary");
+  await page.getByRole("searchbox", { name: "Filter glossary terms" }).fill("safe");
+  await expect(page.getByText("Safe harbour", { exact: true })).toBeVisible();
+  await expect(page.getByText("Warm shell", { exact: true })).toBeHidden();
 });
 
 test("priority weights re-rank markets and pick the modelled site", async ({ page }) => {
@@ -25,7 +53,7 @@ test("priority weights re-rank markets and pick the modelled site", async ({ pag
   expect(weights.reduce((a, b) => a + b, 0)).toBe(100);
 
   await page.locator("tbody tr", { hasText: "Chennai OMR" }).getByRole("button", { name: "Model" }).click();
-  await page.getByRole("link", { name: "5-Year TCO" }).click();
+  await page.getByRole("navigation", { name: "Tools" }).getByRole("link", { name: "5-Year TCO" }).click();
   await expect(page.getByRole("combobox", { name: "Micro-market" })).toHaveValue("chennai-omr");
 });
 
@@ -68,7 +96,7 @@ test("scenario survives a shared link", async ({ page, context }) => {
 });
 
 test("exports download a PDF memo and an Excel workbook", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/tools");
   const [xlsx] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Excel/ }).click()]);
   expect(xlsx.suggestedFilename()).toMatch(/\.xlsx$/);
   const [pdf] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: /Board memo/ }).click()]);
@@ -77,15 +105,15 @@ test("exports download a PDF memo and an Excel workbook", async ({ page }) => {
 
 test("no horizontal scroll at phone width", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const path of ["/", "/location", "/financials", "/stress-test"]) {
+  for (const path of ["/", "/learn/setup-roadmap", "/markets", "/markets/gift-city", "/methodology", "/tools", "/location", "/financials", "/stress-test"]) {
     await page.goto(path);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow, path).toBeLessThanOrEqual(0);
   }
 });
 
-test("home dashboard reacts to presets, headcount and map clicks", async ({ page }) => {
-  await page.goto("/");
+test("cockpit dashboard reacts to presets, headcount and map clicks", async ({ page }) => {
+  await page.goto("/tools");
   const cockpit = page.locator("#cockpit");
   const title = cockpit.getByRole("heading", { level: 2 }).first();
   await expect(title).toHaveText("GenAI scale-up");

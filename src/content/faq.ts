@@ -1,0 +1,11 @@
+export const FAQ: { q: string; a: string }[] = [
+  { q: "Who is this site for?", a: "Anyone curious about India's GCC sector, from students and job seekers to executives weighing a new centre. The Learn and Markets sections need no background; the Tools section is for building a business case." },
+  { q: "How many GCCs are there in India?", a: "About 2,117 GCCs operating 3,728 units in FY26, employing more than 2.36 million people, according to Nasscom and Zinnov. Other consultants count differently, so you will see figures from roughly 1,700 upward." },
+  { q: "Which city has the most GCCs?", a: "Bengaluru, by a wide margin: roughly 30–40% of India's GCCs depending on the source. Hyderabad, Delhi NCR, Mumbai, Pune and Chennai follow; together the six metros host about 94%." },
+  { q: "Are Tier-2 cities a real option?", a: "Increasingly, yes, especially for operations, shared services and well-defined engineering work. The trade-off is thinner senior talent, so many companies run a Tier-1 hub with a Tier-2 spoke." },
+  { q: "How long does it take to set up a GCC?", a: "Typically 3–6 months from decision to first hires in a captive model, and 6–12 months to reach about 100 people. A partner-led model can be faster." },
+  { q: "How much does a GCC seat cost?", a: "It depends heavily on the function and seniority mix. In this tool's scenarios a fully loaded seat ranges from roughly $25K to $90K a year, with compensation usually 75–85% of the total." },
+  { q: "Where do the numbers on this site come from?", a: "Headline sector figures come from published industry reports, linked on each page. City-level cost and talent benchmarks are indicative estimates compiled from public summaries; the Methodology page lists sources and how every score is calculated." },
+  { q: "Can I rely on the tax information?", a: "Use it to understand the landscape, not to make filings. Tax rules change with each Finance Act, and items that may have changed are flagged. Confirm with a qualified adviser." },
+  { q: "Is my data stored anywhere?", a: "No. The models run entirely in your browser. Your scenario lives only in the page address, which is why the Share button can copy it as a link." },
+];

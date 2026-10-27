@@ -32,12 +32,12 @@ export interface TaxResult {
 
 export function adviseTax(t: TaxInput): TaxResult {
   // Transfer pricing: cost-plus on the operating cost base, safe harbour by transaction size.
-  const prelimTxnCr = (t.costBaseInr * 1.17) / 1e7;
+  const prelimTxnCr = (t.costBaseInr * 1.155) / 1e7;
   const band = TAX_RULES.safeHarbourBands.value.find((b) => prelimTxnCr <= b.maxTxnInrCr);
   const markup = band?.markup ?? 0.18;
   const markupNote = band
-    ? `Safe-harbour markup of ${(band.markup * 100).toFixed(0)}% applies (transaction ≤ ₹${band.maxTxnInrCr} cr).`
-    : `Transaction above the safe-harbour ceiling: benchmark via a TP study or APA; ${(markup * 100).toFixed(0)}% used as a conservative estimate.`;
+    ? `Safe-harbour markup of ${(band.markup * 100).toFixed(1)}% applies (IT services, transaction ≤ ₹${band.maxTxnInrCr.toLocaleString("en-IN")} cr).`
+    : `Transaction above the ₹2,000 cr safe-harbour ceiling: benchmark via a TP study or a fast-tracked APA; ${(markup * 100).toFixed(0)}% used as a conservative estimate.`;
   const profitInr = t.costBaseInr * markup;
 
   // GIFT City IFSC eligibility: financial services and group in-house centres of financial groups.

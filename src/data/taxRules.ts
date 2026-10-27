@@ -16,12 +16,9 @@ export const TAX_RULES = {
   sbiePayrollPct: { value: 0.05, basis: "GloBE Art. 5.3 substance-based income exclusion (post-transition)", effective: "Transition ends 2033" } as Rule<number>,
   sbieAssetPct: { value: 0.05, basis: "GloBE Art. 5.3", effective: "Transition ends 2033" } as Rule<number>,
   safeHarbourBands: {
-    value: [
-      { maxTxnInrCr: 100, markup: 0.17 },
-      { maxTxnInrCr: 200, markup: 0.18 },
-    ],
-    basis: "Income-tax Rules r.10TD (software development / ITeS)",
-    effective: "AY 2017-18 onwards",
+    value: [{ maxTxnInrCr: 2000, markup: 0.155 }],
+    basis: "Finance Act 2026 (Union Budget 2026-27): unified 'IT Services' safe harbour at 15.5% on cost, eligibility up to INR 2,000 cr, automated approval valid for 5 years; operative rules via CBDT notification",
+    effective: "FY 2026-27 onwards",
     verify: true,
   } as Rule<{ maxTxnInrCr: number; markup: number }[]>,
   ifscHoliday: { value: { years: 10, window: 15, deduction: 1 }, basis: "Income-tax Act s.80LA(1A) — IFSC units", effective: "Units commencing on/before 31-Mar-2030", verify: true } as Rule<{ years: number; window: number; deduction: number }>,

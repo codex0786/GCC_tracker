@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { MARKETS, MARKET_BY_ID } from "@/data/markets";
 import { evaluate } from "./evaluate";
-import { scoreMarkets } from "./mcda";
+import { CRITERION_DEFS, scoreMarkets } from "./mcda";
 import { runMonteCarlo } from "./montecarlo";
 import { DEFAULT_SCENARIO, anchorsFromScenario, rebalance, stressedEnv, type Scenario } from "./scenario";
 import { assessTalent } from "./talent";
@@ -24,7 +24,8 @@ describe("MCDA", () => {
   it("treats cost as lower-is-better", () => {
     const r = scoreMarkets(MARKETS, "genai", { cost: 100, seniorTalent: 0, attrition: 0, connectivity: 0, incentives: 0 });
     expect(r[0].market.id).toBe("coimbatore");
-    expect(r.at(-1)!.market.id).toBe("blr-orr");
+    const costliest = [...MARKETS].sort((a, b) => CRITERION_DEFS.cost.raw(b, "genai") - CRITERION_DEFS.cost.raw(a, "genai"))[0];
+    expect(r.at(-1)!.market.id).toBe(costliest.id);
   });
 
   it("does not re-rank markets when the comparison set changes (fixed bounds)", () => {
@@ -84,7 +85,9 @@ describe("Tax", () => {
   });
   it("uses the safe-harbour band for small transactions", () => {
     const t = adviseTax({ ...base, costBaseInr: 5e8, market: MARKET_BY_ID["hyd-fd"], fn: "genai" });
-    expect(t.safeHarbourMarkup).toBe(0.17);
+    expect(t.safeHarbourMarkup).toBe(0.155);
+    const big = adviseTax({ ...base, costBaseInr: 2.5e10, market: MARKET_BY_ID["hyd-fd"], fn: "genai" });
+    expect(big.safeHarbourMarkup).toBeNull();
   });
 });
 
