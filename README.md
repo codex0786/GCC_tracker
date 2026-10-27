@@ -1,0 +1,50 @@
+# GCC-Nexus · India Strategic Advisory Engine
+
+Decision-support prototype for Global Capability Centre (GCC) expansion in India: site selection, 5-year TCO, talent feasibility, tax strategy and market stress-testing.
+
+## Run it
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm test           # engine + export tests
+npm run build      # static production build
+```
+
+## What it does
+
+| Path | Engines | Output |
+|---|---|---|
+| **Select my optimal location** (`/location`) | MCDA scoring, talent funnel, hub-and-spoke optimiser | Ranked micro-markets with per-criterion contributions, trade-off matrix, split recommendation, Leadership Ceiling Index alerts |
+| **Build my 5-year financial model** (`/financials`) | Monthly TCO, real-estate model comparison, tax advisor | Cash flow by category, NPV and payback vs onshore, lease-vs-managed breakeven, TP markup, Pillar Two top-up, SEZ/DTA and GIFT IFSC checks |
+| **Stress-test my strategy** (`/stress-test`) | Signal shocks, Monte Carlo (Web Worker) | Stressed KPIs vs baseline, P10/P50/P90 savings fan, ranking shifts |
+
+Exports: a board memo (PDF) and an Excel workbook with live formulas (totals, savings, cumulative and `NPV()`). The scenario lives in the URL hash, so **Share** copies a link to the exact case.
+
+## Architecture
+
+```
+Scenario (plain JSON, in URL)
+   └─► evaluate(scenario, stressed?)  — pure TypeScript, no React
+         ├─ mcda.ts        weighted sum, direction-aware, fixed benchmark bounds
+         ├─ talent.ts      LCI, capturable supply, fill rate, time-to-hire, relocation premium
+         ├─ tco.ts         60-month cash flow, RE models, onshore comparator, NPV/payback
+         ├─ tax.ts         safe harbour, IFSC holiday, Pillar Two (SBIE), SEZ vs DTA
+         └─ evaluate.ts    two-pass run (pre-tax base → tax → final), hub-and-spoke, trade-offs
+   montecarlo.ts  seeded paths, run in src/workers/montecarlo.worker.ts
+```
+
+- `src/data/` holds every benchmark with its source, method and as-of quarter; the UI tooltips read from it.
+- `src/data/taxRules.ts` carries the legal basis and effective date for each rule. Items flagged `verify` may have changed in recent Finance Acts.
+- `src/data/signals.ts` is a curated analyst feed. Each signal is a quantified input shock, not a live data source.
+
+## Data caveats
+
+Benchmarks are **indicative** (Q3 2026) and compiled from public sources: consultant press releases, NASSCOM/Zinnov summaries, public salary surveys and state policies. They are not licensed Radford/Aon or CBRE/JLL datasets. Validate with licensed data and a qualified tax adviser before committing capital.
+
+## Roadmap
+
+- AHP pairwise-comparison mode with consistency ratio
+- India map view (d3-geo + open TopoJSON)
+- Saved scenarios and an admin form for signals (Supabase)
+- Analyst workflow to refresh benchmarks quarterly
