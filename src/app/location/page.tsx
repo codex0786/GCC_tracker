@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { motion } from "motion/react";
 import { ScenarioPanel } from "@/components/ScenarioPanel";
 import { AlertList, Card, Info, PageTitle, Slider } from "@/components/ui";
 import { BENCHMARK_META, FUNCTIONS } from "@/data/benchmarks";
@@ -77,7 +78,7 @@ export default function LocationPage() {
                   {e.ranking.map((r) => {
                     const selected = r.market.id === s.marketId;
                     return (
-                      <tr key={r.market.id} className={`border-b border-line/70 ${selected ? "bg-accent-soft/40" : ""}`}>
+                      <motion.tr layout transition={{ type: "spring", stiffness: 260, damping: 30 }} key={r.market.id} className={`border-b border-line/70 ${selected ? "bg-accent-soft/40" : ""}`}>
                         <td className="py-2.5 pr-2 text-muted">{r.rank}</td>
                         <td className="py-2.5 pr-2">
                           <div className="font-medium">{r.market.name}</div>
@@ -87,7 +88,7 @@ export default function LocationPage() {
                           <div className="flex items-center gap-2">
                             <div className="flex h-3 flex-1 gap-[2px] overflow-hidden rounded-[3px] bg-panel-2" title={CRITERIA.map((c) => `${CRITERION_DEFS[c].label}: ${r.contribution[c].toFixed(1)}`).join("\n")}>
                               {CRITERIA.map((c, i) => (
-                                <div key={c} style={{ width: `${r.contribution[c]}%`, background: `var(--series-${i + 1})` }} />
+                                <div key={c} className="transition-[width] duration-500 ease-out" style={{ width: `${r.contribution[c]}%`, background: `var(--series-${i + 1})` }} />
                               ))}
                             </div>
                             <span className="w-10 text-right font-semibold tabular-nums">{r.score.toFixed(1)}</span>
@@ -104,7 +105,7 @@ export default function LocationPage() {
                             </button>
                           )}
                         </td>
-                      </tr>
+                      </motion.tr>
                     );
                   })}
                 </tbody>

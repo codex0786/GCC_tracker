@@ -83,3 +83,23 @@ test("no horizontal scroll at phone width", async ({ page }) => {
     expect(overflow, path).toBeLessThanOrEqual(0);
   }
 });
+
+test("home dashboard reacts to presets, headcount and map clicks", async ({ page }) => {
+  await page.goto("/");
+  const cockpit = page.locator("#cockpit");
+  const title = cockpit.getByRole("heading", { level: 2 }).first();
+  await expect(title).toHaveText("GenAI scale-up");
+
+  await page.getByRole("button", { name: /VLSI design hub/ }).click();
+  await expect(title).toHaveText("VLSI design hub");
+  await expect(cockpit.locator("ol li").first()).toContainText("Bengaluru");
+
+  const npv = page.getByRole("group", { name: "NPV of savings" });
+  const before = await npv.innerText();
+  await page.getByRole("slider", { name: "Year-5 headcount" }).fill("2000");
+  await expect(title).toHaveText("Custom scenario");
+  await expect(npv).not.toHaveText(before);
+
+  await page.getByRole("button", { name: /^Kochi Infopark, rank/ }).click();
+  await expect(cockpit).toContainText("Modelled at Kochi Infopark");
+});

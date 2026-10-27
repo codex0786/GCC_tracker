@@ -4,6 +4,7 @@ import { AlertTriangle, CircleAlert, Info as InfoIcon, Lightbulb } from "lucide-
 import type { ReactNode } from "react";
 import type { SourceMeta } from "@/data/types";
 import type { Alert } from "@/engine/talent";
+import { CountUp } from "./motion";
 
 export function Card({ title, info, action, children, className = "" }: { title?: ReactNode; info?: Partial<SourceMeta>; action?: ReactNode; children: ReactNode; className?: string }) {
   return (
@@ -44,15 +45,15 @@ export function Info({ meta }: { meta: Partial<SourceMeta> }) {
   );
 }
 
-export function Kpi({ label, value, sub, info, tone }: { label: string; value: string; sub?: ReactNode; info?: Partial<SourceMeta>; tone?: "good" | "bad" | "warn" }) {
+export function Kpi({ label, value, num, format, sub, info, tone }: { label: string; value?: string; num?: number; format?: (n: number) => string; sub?: ReactNode; info?: Partial<SourceMeta>; tone?: "good" | "bad" | "warn" }) {
   const color = tone === "good" ? "text-good" : tone === "bad" ? "text-bad" : tone === "warn" ? "text-warn" : "text-ink";
   return (
-    <div role="group" aria-label={label} className="rounded-xl border border-line bg-panel p-4">
+    <div role="group" aria-label={label} className="rounded-xl border border-line bg-panel p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/10">
       <div className="flex items-center gap-1.5 text-xs font-medium text-muted">
         {label}
         {info && <Info meta={info} />}
       </div>
-      <div className={`mt-1 text-2xl font-semibold tracking-tight ${color}`}>{value}</div>
+      <div className={`mt-1 text-2xl font-semibold tracking-tight ${color}`}>{num !== undefined && format ? <CountUp value={num} format={format} /> : value}</div>
       {sub && <div className="mt-0.5 text-xs text-muted">{sub}</div>}
     </div>
   );

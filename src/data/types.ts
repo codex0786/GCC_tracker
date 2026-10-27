@@ -26,6 +26,9 @@ export interface Market {
   city: string;
   state: string;
   tier: 1 | 2;
+  /** Micro-market centroid, WGS84 degrees */
+  lat: number;
+  lon: number;
   /** Grade-A warm-shell rent, INR per sq.ft per month */
   rentInrSqft: number;
   /** Fully managed enterprise seat, INR per seat per month */

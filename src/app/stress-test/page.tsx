@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { motion } from "motion/react";
 import { FanChart } from "@/components/charts";
 import { AlertList, Card, Kpi, PageTitle, Slider } from "@/components/ui";
 import { MARKET_BY_ID } from "@/data/markets";
@@ -79,10 +80,10 @@ export default function StressTestPage() {
 
         <div className="min-w-0 space-y-4">
           <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-            <Kpi label="NPV savings (stressed)" value={usd(x.npvSavingsUsd)} sub={delta(b.npvSavingsUsd, x.npvSavingsUsd)} tone={x.npvSavingsUsd > 0 ? undefined : "bad"} />
-            <Kpi label="5-yr India cost" value={usd(x.totalUsd)} sub={delta(b.totalUsd, x.totalUsd, true)} />
+            <Kpi label="NPV savings (stressed)" num={x.npvSavingsUsd} format={usd} sub={delta(b.npvSavingsUsd, x.npvSavingsUsd)} tone={x.npvSavingsUsd > 0 ? undefined : "bad"} />
+            <Kpi label="5-yr India cost" num={x.totalUsd} format={usd} sub={delta(b.totalUsd, x.totalUsd, true)} />
             <Kpi label="Payback" value={months(x.paybackMonth)} sub={`baseline ${months(b.paybackMonth)}`} />
-            <Kpi label="Cost per seat (Y3)" value={usd(x.costPerSeatY3Usd, 0)} sub={delta(b.costPerSeatY3Usd, x.costPerSeatY3Usd, true)} />
+            <Kpi label="Cost per seat (Y3)" num={x.costPerSeatY3Usd} format={(n) => usd(n, 0)} sub={delta(b.costPerSeatY3Usd, x.costPerSeatY3Usd, true)} />
           </div>
 
           <Card
@@ -119,11 +120,11 @@ export default function StressTestPage() {
                   {stressed.ranking.map((r) => {
                     const move = baseRank[r.market.id] - r.rank;
                     return (
-                      <tr key={r.market.id} className="border-b border-line/60">
+                      <motion.tr layout transition={{ type: "spring", stiffness: 260, damping: 30 }} key={r.market.id} className="border-b border-line/60">
                         <td className="py-1.5">{r.rank}. {r.market.name}</td>
                         <td className="py-1.5 text-right tabular-nums">{r.score.toFixed(1)}</td>
                         <td className={`py-1.5 text-right ${move > 0 ? "text-good" : move < 0 ? "text-bad" : "text-muted"}`}>{move === 0 ? "—" : move > 0 ? `▲ ${move}` : `▼ ${-move}`}</td>
-                      </tr>
+                      </motion.tr>
                     );
                   })}
                 </tbody>

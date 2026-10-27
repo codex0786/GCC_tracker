@@ -1,6 +1,7 @@
 "use client";
 
 import { Download, FileSpreadsheet, FileText, Link2, Loader2 } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -40,19 +41,20 @@ export function AppHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-panel/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-accent text-xs font-bold text-white">GN</span>
+          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-to-br from-[var(--series-1)] to-[var(--series-7)] text-xs font-bold text-white shadow-md shadow-accent/30">GN</span>
           <span>GCC-Nexus</span>
           <span className="hidden text-xs font-normal text-muted sm:inline">India Strategic Advisory Engine</span>
         </Link>
-        <nav className="order-3 -mx-1 flex w-full gap-1 overflow-x-auto sm:order-none sm:w-auto">
+        <nav className="relative isolate order-3 -mx-1 flex w-full gap-1 overflow-x-auto sm:order-none sm:w-auto">
           {NAV.map((n) => {
             const active = n.href === "/" ? path === "/" : path.startsWith(n.href);
             return (
               <Link
                 key={n.href}
                 href={n.href}
-                className={`whitespace-nowrap rounded-md px-3 py-1.5 text-sm ${active ? "bg-accent-soft font-medium text-accent" : "text-muted hover:text-ink"}`}
+                className={`relative whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-colors ${active ? "font-medium text-accent" : "text-muted hover:text-ink"}`}
               >
+                {active && <motion.span layoutId="nav-pill" className="absolute inset-0 -z-10 rounded-md bg-accent-soft" transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
                 {n.label}
               </Link>
             );

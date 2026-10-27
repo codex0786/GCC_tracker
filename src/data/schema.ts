@@ -20,6 +20,9 @@ export const MarketSchema = z.object({
   city: z.string().min(2),
   state: z.string().min(2),
   tier: z.union([z.literal(1), z.literal(2)]),
+  // India's bounding box
+  lat: z.number().min(6).max(37),
+  lon: z.number().min(68).max(98),
   rentInrSqft: z.number().min(20).max(300),
   managedSeatInr: z.number().min(4000).max(40000),
   vacancyPct: pct,

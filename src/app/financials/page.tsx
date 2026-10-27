@@ -71,12 +71,13 @@ export default function FinancialsPage() {
 
         <div className="min-w-0 space-y-4">
           <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-            <Kpi label="5-yr India cash cost" value={usd(t.totalUsd)} sub={`vs ${usd(t.onshoreUsd)} onshore-equivalent`} info={BENCHMARK_META.ctc} />
-            <Kpi label="NPV of savings" value={usd(t.npvSavingsUsd)} tone={t.npvSavingsUsd > 0 ? "good" : "bad"} sub={`at ${s.macro.waccPct}% WACC vs ${ONSHORE_LABEL[s.macro.onshore]}`} info={BENCHMARK_META.onshore} />
+            <Kpi label="5-yr India cash cost" num={t.totalUsd} format={usd} sub={`vs ${usd(t.onshoreUsd)} onshore-equivalent`} info={BENCHMARK_META.ctc} />
+            <Kpi label="NPV of savings" num={t.npvSavingsUsd} format={usd} tone={t.npvSavingsUsd > 0 ? "good" : "bad"} sub={`at ${s.macro.waccPct}% WACC vs ${ONSHORE_LABEL[s.macro.onshore]}`} info={BENCHMARK_META.onshore} />
             <Kpi label="Payback" value={months(t.paybackMonth)} sub={`setup ${usd(t.setupUsd)} + transition ${usd(t.transitionUsd)}`} info={BENCHMARK_META.productivity} />
             <Kpi
               label="TCO per seat (Y3)"
-              value={usd(t.costPerSeatY3Usd, 0)}
+              num={t.costPerSeatY3Usd}
+              format={(n) => usd(n, 0)}
               sub="per FTE p.a., capex amortised"
               info={{ label: "TCO per seat", method: "Capex_amortised / N + comp + real estate + compute + SG&A + compliance, year-3 average headcount", source: "Model output", asOf: DATA_AS_OF }}
             />
