@@ -1,5 +1,7 @@
 # GCC-Nexus · India Strategic Advisory Engine
 
+**Live:** https://gcc-nexus.vercel.app (auto-deploys from `main`)
+
 Decision-support prototype for Global Capability Centre (GCC) expansion in India: site selection, 5-year TCO, talent feasibility, tax strategy and market stress-testing.
 
 ## Run it
