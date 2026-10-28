@@ -22,9 +22,16 @@ const COLS = [
 export default function MarketsPage() {
   return (
     <>
-      <PageTitle eyebrow="Markets" title="India's GCC cities at a glance">
+      <PageTitle eyebrow="Markets · Step 2" title="India's GCC cities at a glance">
         Eleven micro-markets across nine cities: the six metros where most GCCs sit, plus GIFT City and two fast-growing Tier-2 options.
       </PageTitle>
+      <Link href="/markets/countries" className="group mb-5 flex items-center justify-between gap-4 rounded-xl border border-accent/40 bg-accent-soft/40 p-4 transition hover:border-accent">
+        <span>
+          <span className="block text-xs font-semibold uppercase tracking-wider text-accent">Step 1</span>
+          <span className="block font-semibold">Still deciding on the country? Compare India with the Philippines, Poland, Mexico and Vietnam</span>
+        </span>
+        <span className="shrink-0 text-accent transition group-hover:translate-x-1">→</span>
+      </Link>
       <div className="grid gap-4 lg:grid-cols-[1fr_1.15fr]">
         <Card title="Pick a city">
           <MarketsMap />

@@ -34,7 +34,7 @@ const decode = (h: string): Scenario | null => {
   }
 };
 
-const TOOL_PATHS = ["/tools", "/location", "/financials", "/stress-test"];
+const TOOL_PATHS = ["/tools", "/location", "/financials", "/stress-test", "/benchmark"];
 export const isToolPath = (path: string) => TOOL_PATHS.some((p) => path === p || path.startsWith(`${p}/`));
 
 /** Keeps the scenario in the URL hash on tool pages so any view can be shared as a link. */

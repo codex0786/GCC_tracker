@@ -105,7 +105,7 @@ test("exports download a PDF memo and an Excel workbook", async ({ page }) => {
 
 test("no horizontal scroll at phone width", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
-  for (const path of ["/", "/learn/setup-roadmap", "/markets", "/markets/gift-city", "/methodology", "/tools", "/location", "/financials", "/stress-test"]) {
+  for (const path of ["/", "/learn/setup-roadmap", "/markets", "/markets/countries", "/markets/gift-city", "/methodology", "/tools", "/location", "/financials", "/stress-test", "/benchmark"]) {
     await page.goto(path);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow, path).toBeLessThanOrEqual(0);
@@ -130,4 +130,26 @@ test("cockpit dashboard reacts to presets, headcount and map clicks", async ({ p
 
   await page.getByRole("button", { name: /^Kochi Infopark, rank/ }).click();
   await expect(cockpit).toContainText("Modelled at Kochi Infopark");
+});
+
+test("country comparison reacts to headquarters", async ({ page }) => {
+  await page.goto("/markets");
+  await page.getByRole("link", { name: /Still deciding on the country/ }).click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("India or somewhere else?");
+  await page.getByRole("combobox", { name: "Headquarters" }).selectOption("us-east");
+  const mexicoOverlap = page.locator("tr", { hasText: "Mexico" }).locator("td").nth(4);
+  await expect(mexicoOverlap).toHaveText("8.0 h");
+  await page.getByRole("combobox", { name: "Headquarters" }).selectOption("singapore");
+  await expect(page.locator("tr", { hasText: "Philippines" }).locator("td").nth(4)).toHaveText("9.0 h");
+});
+
+test("benchmark my GCC compares entered costs privately", async ({ page }) => {
+  await page.goto("/benchmark");
+  await expect(page.getByText(/Your numbers stay in this browser tab/)).toBeVisible();
+  await expect(page.getByRole("button", { name: /Board memo/ })).toHaveCount(0);
+  await page.getByRole("button", { name: /Try an example/ }).click();
+  await expect(page.getByRole("group", { name: "Versus model" })).toContainText("%");
+  await expect(page.getByText(/Real estate is above benchmark/)).toBeVisible();
+  const before = page.url();
+  expect(before).not.toContain("comp");
 });

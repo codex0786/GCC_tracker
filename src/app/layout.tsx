@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://gcc-nexus.vercel.app"),
   openGraph: { siteName: "GCC-Nexus", type: "website" },
   title: "GCC-Nexus · India Strategic Advisory Engine",
-  description: "Decision support for Global Capability Centre site selection, 5-year TCO, talent feasibility, tax strategy and market stress-testing in India.",
+  description: "Independent guide and decision tools for Global Capability Centres in India: no sign-up, no sales call, open methodology.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

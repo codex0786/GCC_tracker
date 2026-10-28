@@ -30,6 +30,15 @@ export default function MethodologyPage() {
         Everything here is transparent by design. Benchmarks are indicative ({DATA_AS_OF}) and compiled from public sources; they are not licensed datasets.
       </PageTitle>
 
+      <Card title="Independence">
+        <ul className="list-disc space-y-1.5 pl-5 text-sm text-ink/85">
+          <li>GCC-Nexus does not sell set-up services, office space, recruitment or advisory, and takes no referral fees.</li>
+          <li>No sign-up, email or sales call is needed for any page or tool.</li>
+          <li>All models run in your browser. Scenarios live only in the page address; Benchmark entries are never uploaded or stored.</li>
+          <li>Every assumption is listed below with its source, so you can disagree with a number and see exactly how it moves the answer.</li>
+        </ul>
+      </Card>
+
       <Card title="Location scoring (MCDA)">
         <p className="mb-3 text-sm text-ink/85">
           Each market gets a 0–100 score: a weighted sum of five criteria. Every criterion is scaled against fixed benchmark bounds, so adding or removing a market never changes how the others rank. Cost is inverted, so cheaper scores higher.
@@ -55,6 +64,13 @@ export default function MethodologyPage() {
           <li>Leadership Ceiling Index (LCI) = 0.7 × local L6+ depth + 30 × the function&apos;s ecosystem strength. Planning more than 50 senior hires where LCI is below 45 raises a red flag.</li>
           <li>Capturable hires per year = talent pool × band share × specialism^1.5 × attrition-driven mobility × a capture share that falls as competitor density rises.</li>
           <li>Tier-2 cities add a 25–45% relocation premium on the senior roles that must be brought in from Tier-1 hubs.</li>
+        </ul>
+      </Card>
+
+      <Card title="Country comparison and benchmarking">
+        <ul className="list-disc space-y-1.5 pl-5 text-sm text-ink/85">
+          <li>Country scores are indicative 0–100 composites for cost (US = 100), talent scale, business English, time-zone overlap with the chosen HQ, headline corporate tax and GCC-ecosystem maturity. EF EPI 2025 scores are shown where published.</li>
+          <li>Benchmark my GCC models a team of the entered size and mix holding steady for 12 months in the chosen city, then compares each cost line; within ±10% counts as in line.</li>
         </ul>
       </Card>
 

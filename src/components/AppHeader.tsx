@@ -20,6 +20,7 @@ const TOOLS_NAV = [
   { href: "/location", label: "Location" },
   { href: "/financials", label: "5-Year TCO" },
   { href: "/stress-test", label: "Stress test" },
+  { href: "/benchmark", label: "Benchmark my GCC" },
 ];
 
 const pill = { type: "spring", stiffness: 420, damping: 34 } as const;
@@ -28,6 +29,7 @@ export function AppHeader() {
   const path = usePathname();
   useScenarioUrlSync(path);
   const inTools = isToolPath(path);
+  const showExports = inTools && path !== "/benchmark";
   const [busy, setBusy] = useState<"pdf" | "xlsx" | null>(null);
   const [copied, setCopied] = useState(false);
 
@@ -70,7 +72,7 @@ export function AppHeader() {
             </Link>
           ))}
         </nav>
-        {inTools ? (
+        {showExports ? (
           <div className="ml-auto flex items-center gap-1.5">
             <button onClick={copyLink} className="hidden items-center gap-1.5 rounded-md border border-line px-2.5 py-1.5 text-xs text-muted hover:text-ink md:flex" title="Copy a link to this exact scenario">
               <Link2 size={14} /> {copied ? "Copied" : "Share"}

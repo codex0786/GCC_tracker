@@ -1,10 +1,11 @@
-import { ArrowRight, BookOpen, Calculator, Clock, Landmark, MapPin, ShieldAlert } from "lucide-react";
+import { ArrowRight, BookOpen, Calculator, Clock, Gauge, Landmark, MapPin, ShieldAlert } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LiveDot, SignalTicker } from "@/components/home/widgets";
 import { CityBars } from "@/components/info/CityBars";
 import { Cite } from "@/components/info/SourceList";
 import { StatCounters } from "@/components/info/StatCounters";
+import { TrustStrip } from "@/components/info/TrustStrip";
 import { Reveal } from "@/components/motion";
 import { CITY_PROFILES } from "@/content/cities";
 import { LANDSCAPE_FACTS, STATE_POLICIES, STATE_TARGETS } from "@/content/facts";
@@ -14,13 +15,14 @@ import { MARKETS } from "@/data/markets";
 export const metadata: Metadata = {
   title: "GCC-Nexus · India's Global Capability Centres, explained",
   description:
-    "Free, sourced guide to India's GCC sector: what GCCs are, why companies choose India, city profiles, state policies and tax basics, plus tools to model location, 5-year TCO and risk.",
+    "Independent, free and sourced guide to India's GCC sector — no sign-up, no sales call: what GCCs are, why companies choose India, city profiles, state policies and tax basics, plus tools to model location, 5-year TCO and risk.",
 };
 
 const TOOLS = [
   { href: "/location", icon: MapPin, title: "Find the best location", body: "Rank 11 micro-markets on your priorities." },
   { href: "/financials", icon: Calculator, title: "Build a 5-year TCO", body: "Cost, payback and NPV vs onshore." },
   { href: "/stress-test", icon: ShieldAlert, title: "Stress-test the plan", body: "Wage, FX, rent and AI shocks." },
+  { href: "/benchmark", icon: Gauge, title: "Benchmark my GCC", body: "Your actual costs vs the model." },
 ];
 
 export default function Home() {
@@ -36,7 +38,7 @@ export default function Home() {
         <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1.15fr_1fr]">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1 text-xs font-medium backdrop-blur">
-              <LiveDot /> Free, sourced and open to everyone
+              <LiveDot /> Independent · free · every number sourced
             </div>
             <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
               India&apos;s Global Capability Centres, <span className="shine">explained.</span>
@@ -52,6 +54,7 @@ export default function Home() {
                 Explore cities <ArrowRight size={15} />
               </Link>
             </div>
+            <TrustStrip className="mt-6" />
           </div>
           <StatCounters facts={LANDSCAPE_FACTS} />
         </div>
@@ -157,6 +160,32 @@ export default function Home() {
         <p className="mt-3 text-xs text-muted">Summaries of published policies as reported by law firms and consultancies. Check the official state notification before relying on any figure.</p>
       </section>
 
+      {/* Independence */}
+      <Reveal>
+        <section className="grid gap-6 rounded-2xl border border-line bg-panel p-6 sm:p-8 lg:grid-cols-[1fr_1.3fr] lg:items-center">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wider text-accent">Independent by design</div>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight">A second opinion, not a sales funnel</h2>
+            <p className="mt-2 text-muted">
+              Most GCC cost calculators are run by firms that sell set-up services or office space, and ask for your details before showing a number. GCC-Nexus sells nothing: every assumption is on the page, and your scenario never leaves your browser.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["No sign-up, no sales call", "Every page and tool works without an account, an email or a form."],
+              ["Open methodology", "Each score and cost line shows its formula, source and as-of date."],
+              ["Your data stays with you", "Models run in your browser. Benchmark entries are never uploaded or stored."],
+              ["Honest about limits", "Indicative public benchmarks, clearly labelled. Tax rules flagged where they may have changed."],
+            ].map(([t, b]) => (
+              <div key={t} className="rounded-xl border border-line bg-panel-2/60 p-4">
+                <div className="text-sm font-semibold">{t}</div>
+                <div className="mt-1 text-xs text-muted">{b}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </Reveal>
+
       {/* Tools CTA */}
       <Reveal>
         <section className="relative overflow-hidden rounded-3xl border border-line bg-panel p-6 sm:p-10">
@@ -174,7 +203,7 @@ export default function Home() {
                 Open the decision cockpit <ArrowRight size={15} />
               </Link>
             </div>
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2">
               {TOOLS.map(({ href, icon: Icon, title, body }) => (
                 <Link key={href} href={href} className="group rounded-xl border border-line bg-panel/80 p-4 backdrop-blur transition hover:-translate-y-1 hover:border-accent">
                   <span className="grid h-9 w-9 place-items-center rounded-lg bg-accent-soft text-accent transition-transform group-hover:scale-110">

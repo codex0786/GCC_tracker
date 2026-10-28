@@ -54,7 +54,7 @@ export default function ToolsCockpit() {
         <div className="relative z-10 grid items-center gap-8 lg:grid-cols-[1.25fr_1fr]">
           <div>
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 rounded-full border border-line bg-panel/70 px-3 py-1 text-xs font-medium backdrop-blur">
-              <LiveDot /> Executive briefing · model recalculates as you type
+              <LiveDot /> No sign-up · no sales call · recalculates as you type
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 14 }}

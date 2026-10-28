@@ -106,6 +106,34 @@ export const SOURCES: Record<string, Source> = {
     date: "2025-07",
     url: "https://realtynmore.com/mumbai-gurugram-delhi-lead-surge-in-grade-a-office-rentals-iimb-cre-index-q2-2025",
   },
+  efIndia: {
+    id: "efIndia",
+    title: "EF English Proficiency Index 2025: India fact sheet",
+    publisher: "EF Education First",
+    date: "2025-11",
+    url: "https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2025/ef-epi-fact-sheet-india-english.pdf",
+  },
+  efPhilippines: {
+    id: "efPhilippines",
+    title: "EF English Proficiency Index 2025: Philippines fact sheet",
+    publisher: "EF Education First",
+    date: "2025-11",
+    url: "https://www.ef.com/assetscdn/WIBIwq6RdJvcD9bc8RMd/cefcom-epi-site/fact-sheets/2025/ef-epi-fact-sheet-philippines-english.pdf",
+  },
+  vietnamEf: {
+    id: "vietnamEf",
+    title: "Vietnam returns to global 'moderate' English proficiency group (EF EPI 2025)",
+    publisher: "Tuoi Tre News",
+    date: "2025-11",
+    url: "https://news.tuoitre.vn/vietnam-returns-to-global-moderate-english-proficiency-group-ef-103251120163417603.htm",
+  },
+  techsciDestinations: {
+    id: "techsciDestinations",
+    title: "India vs emerging GCC destinations: where GCCs will create the most value next",
+    publisher: "TechSci Research",
+    date: "2025",
+    url: "https://www.techsciresearch.com/blog/india-vs-emerging-gcc-destinations-where-global-capability-centers-will-create-the-most-value-next/4734.html",
+  },
 };
 
 export const sourceList = (ids: string[]) => ids.map((id) => SOURCES[id]).filter(Boolean);
