@@ -11,7 +11,7 @@ export function SiteFooter() {
     <footer className="border-t border-line bg-panel/60">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div>
-          <div className="font-semibold">GCC-Nexus</div>
+          <div className="font-semibold">GCC Tracker</div>
           <p className="mt-2 max-w-xs text-sm text-muted">A free, independent guide to India&apos;s Global Capability Centres, with tools to model location, cost and risk.</p>
           <p className="mt-2 text-xs text-good">No sign-up · No sales call · Open methodology</p>
           <Link href="/methodology" className="mt-3 inline-block text-sm text-accent hover:underline">Methodology and sources →</Link>

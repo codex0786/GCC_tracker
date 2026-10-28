@@ -56,8 +56,8 @@ export function AppHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-panel/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-to-br from-[var(--series-1)] to-[var(--series-7)] text-xs font-bold text-white shadow-md shadow-accent/30">GN</span>
-          <span>GCC-Nexus</span>
+          <span className="grid h-7 w-7 place-items-center rounded-md bg-gradient-to-br from-[var(--series-1)] to-[var(--series-7)] text-xs font-bold text-white shadow-md shadow-accent/30" aria-hidden>GT</span>
+          <span>GCC Tracker</span>
           <span className="hidden text-xs font-normal text-muted lg:inline">India GCC intelligence</span>
         </Link>
         <nav aria-label="Main" className="relative isolate order-3 -mx-1 flex w-full gap-1 overflow-x-auto sm:order-none sm:w-auto">

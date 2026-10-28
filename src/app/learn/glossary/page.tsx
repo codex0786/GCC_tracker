@@ -4,7 +4,7 @@ import { PageTitle } from "@/components/ui";
 import { GLOSSARY } from "@/content/glossary";
 
 export const metadata: Metadata = {
-  title: "GCC glossary · GCC-Nexus",
+  title: "GCC glossary · GCC Tracker",
   description: "Plain-English definitions of the terms used around Global Capability Centres: BOT, SEZ, transfer pricing, safe harbour, Pillar Two, TCO and more.",
 };
 

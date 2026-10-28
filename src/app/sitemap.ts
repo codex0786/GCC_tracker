@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { ARTICLES } from "@/content/learn";
 import { MARKETS } from "@/data/markets";
 
-export const SITE_URL = "https://gcc-nexus.vercel.app";
+export const SITE_URL = "https://gcc-tracker-india.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [

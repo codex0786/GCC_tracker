@@ -6,7 +6,7 @@ import { PageTitle } from "@/components/ui";
 import { ARTICLES } from "@/content/learn";
 
 export const metadata: Metadata = {
-  title: "Learn about Global Capability Centres in India · GCC-Nexus",
+  title: "Learn about Global Capability Centres in India · GCC Tracker",
   description: "Plain-English guides to GCCs: what they are, why India, operating models, how to set one up, and the policy and tax basics.",
 };
 

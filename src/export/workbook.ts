@@ -15,7 +15,7 @@ export async function downloadWorkbook(s: Scenario) {
   const e = evaluate(s, hasStress(s));
   const t = e.financials.tco;
   const wb = new ExcelJS.Workbook();
-  wb.creator = "GCC-Nexus";
+  wb.creator = "GCC Tracker";
 
   const a = wb.addWorksheet("Assumptions");
   a.columns = [{ width: 34 }, { width: 28 }];
@@ -29,7 +29,7 @@ export async function downloadWorkbook(s: Scenario) {
     ["Wage inflation (hot / general) %", `${s.macro.wageInflHotPct} / ${s.macro.wageInflGeneralPct}`],
     ["Stress applied", hasStress(s) ? "Yes" : "No"],
   ];
-  a.addRow(["GCC-Nexus scenario", ""]).font = { bold: true, size: 13 };
+  a.addRow(["GCC Tracker scenario", ""]).font = { bold: true, size: 13 };
   inputs.forEach((r) => a.addRow(r));
   a.addRow(["WACC", s.macro.waccPct / 100]);
   const waccCell = `Assumptions!$B$${a.rowCount}`;
@@ -77,5 +77,5 @@ export async function downloadWorkbook(s: Scenario) {
   [...Object.values(MARKET_META), ...Object.values(BENCHMARK_META)].forEach((m) => m && src.addRow([m.label, m.unit ?? "", m.method, m.source, m.asOf]));
 
   const buf = await wb.xlsx.writeBuffer();
-  saveBlob(new Blob([buf], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `gcc-nexus-model-${fileStamp()}.xlsx`);
+  saveBlob(new Blob([buf], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }), `gcc-tracker-model-${fileStamp()}.xlsx`);
 }

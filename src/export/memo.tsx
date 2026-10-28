@@ -100,7 +100,7 @@ function Memo({ s, e, stressed }: { s: Scenario; e: Evaluation; stressed: boolea
   const fn = FUNCTIONS[s.fn].label;
   const risk = [...e.alerts].sort((a, b) => ["red", "amber", "info"].indexOf(a.level) - ["red", "amber", "info"].indexOf(b.level));
   return (
-    <Document title="GCC-Nexus Board Memo" author="GCC-Nexus">
+    <Document title="GCC Tracker Board Memo" author="GCC Tracker">
       <Page size="A4" style={st.page}>
         <Text style={st.eyebrow}>BOARD MEMORANDUM · INDIA GCC STRATEGY{stressed ? " · STRESS CASE" : ""}</Text>
         <Text style={st.h1}>{ascii(`${fn} capability centre: ${s.headcount.y5.toLocaleString()} FTE by year 5`)}</Text>
@@ -152,7 +152,7 @@ function Memo({ s, e, stressed }: { s: Scenario; e: Evaluation; stressed: boolea
         </Text>
 
         <View style={st.footer} fixed>
-          <Text>GCC-Nexus · India Strategic Advisory Engine</Text>
+          <Text>GCC Tracker · India&apos;s Global Capability Centres, tracked and modelled</Text>
           <Text render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`} />
         </View>
       </Page>
@@ -167,5 +167,5 @@ export function memoDocument(s: Scenario) {
 
 export async function downloadMemo(s: Scenario) {
   const blob = await pdf(memoDocument(s)).toBlob();
-  saveBlob(blob, `gcc-nexus-board-memo-${fileStamp()}.pdf`);
+  saveBlob(blob, `gcc-tracker-board-memo-${fileStamp()}.pdf`);
 }

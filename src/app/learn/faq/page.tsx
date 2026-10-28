@@ -4,7 +4,7 @@ import { PageTitle } from "@/components/ui";
 import { FAQ } from "@/content/faq";
 
 export const metadata: Metadata = {
-  title: "GCC FAQ · GCC-Nexus",
+  title: "GCC FAQ · GCC Tracker",
   description: "Quick answers about India's Global Capability Centres: how many there are, which cities lead, set-up time, cost per seat and where this site's data comes from.",
 };
 

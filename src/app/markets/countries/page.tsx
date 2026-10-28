@@ -5,7 +5,7 @@ import { PageTitle } from "@/components/ui";
 import { COUNTRY_SOURCES } from "@/data/countries";
 
 export const metadata: Metadata = {
-  title: "India vs other GCC countries · GCC-Nexus",
+  title: "India vs other GCC countries · GCC Tracker",
   description: "Compare India with the Philippines, Poland, Mexico and Vietnam for a Global Capability Centre: cost, talent scale, English, time-zone overlap, tax and ecosystem.",
 };
 

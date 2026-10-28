@@ -1,6 +1,8 @@
-# GCC-Nexus · India Strategic Advisory Engine
+# GCC Tracker · India's Global Capability Centres, tracked and modelled
 
-**Live:** https://gcc-nexus.vercel.app (auto-deploys from `main`)
+Formerly GCC-Nexus.
+
+**Live:** https://gcc-tracker-india.vercel.app (auto-deploys from `main`)
 
 A free, sourced information hub on India's Global Capability Centres (Learn, Markets, Methodology), plus decision tools for site selection, 5-year TCO, talent feasibility, tax strategy and market stress-testing.
 

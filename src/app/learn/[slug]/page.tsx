@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const a = ARTICLE_BY_SLUG[(await params).slug];
-  return a ? { title: `${a.title} · GCC-Nexus`, description: a.summary } : {};
+  return a ? { title: `${a.title} · GCC Tracker`, description: a.summary } : {};
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {

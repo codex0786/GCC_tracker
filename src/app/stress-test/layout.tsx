@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "GCC stress test · GCC-Nexus",
+  title: "GCC stress test · GCC Tracker",
   description: "Apply market signals, wage, FX, rent and AI-displacement shocks to a GCC plan and run a Monte Carlo simulation.",
 };
 

@@ -13,7 +13,7 @@ import { ARTICLES } from "@/content/learn";
 import { MARKETS } from "@/data/markets";
 
 export const metadata: Metadata = {
-  title: "GCC-Nexus · India's Global Capability Centres, explained",
+  title: "GCC Tracker · India's Global Capability Centres, explained",
   description:
     "Independent, free and sourced guide to India's GCC sector — no sign-up, no sales call: what GCCs are, why companies choose India, city profiles, state policies and tax basics, plus tools to model location, 5-year TCO and risk.",
 };
@@ -167,7 +167,7 @@ export default function Home() {
             <div className="text-xs font-semibold uppercase tracking-wider text-accent">Independent by design</div>
             <h2 className="mt-1 text-2xl font-semibold tracking-tight">A second opinion, not a sales funnel</h2>
             <p className="mt-2 text-muted">
-              Most GCC cost calculators are run by firms that sell set-up services or office space, and ask for your details before showing a number. GCC-Nexus sells nothing: every assumption is on the page, and your scenario never leaves your browser.
+              Most GCC cost calculators are run by firms that sell set-up services or office space, and ask for your details before showing a number. GCC Tracker sells nothing: every assumption is on the page, and your scenario never leaves your browser.
             </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">

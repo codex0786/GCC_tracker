@@ -6,7 +6,7 @@ import { CITY_PROFILES } from "@/content/cities";
 import { MARKETS, MARKET_META } from "@/data/markets";
 
 export const metadata: Metadata = {
-  title: "GCC cities and micro-markets in India · GCC-Nexus",
+  title: "GCC cities and micro-markets in India · GCC Tracker",
   description: "Profiles of 11 GCC micro-markets across Bengaluru, Hyderabad, NCR, Mumbai, Pune, Chennai, GIFT City, Coimbatore and Kochi: rents, talent, attrition, connectivity and policy.",
 };
 

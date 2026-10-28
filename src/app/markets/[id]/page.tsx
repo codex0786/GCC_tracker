@@ -19,7 +19,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const m = MARKET_BY_ID[(await params).id as MarketId];
-  return m ? { title: `${m.name} GCC profile · GCC-Nexus`, description: `${CITY_PROFILES[m.id].tagline}. Rents, talent, attrition, connectivity and policy for GCCs in ${m.city}.` } : {};
+  return m ? { title: `${m.name} GCC profile · GCC Tracker`, description: `${CITY_PROFILES[m.id].tagline}. Rents, talent, attrition, connectivity and policy for GCCs in ${m.city}.` } : {};
 }
 
 const FACTS: { key: keyof Market; fmt: (m: Market) => string }[] = [

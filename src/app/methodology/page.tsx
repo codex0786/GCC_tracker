@@ -9,8 +9,8 @@ import { CRITERION_DEFS } from "@/engine/mcda";
 import { CRITERIA } from "@/engine/scenario";
 
 export const metadata: Metadata = {
-  title: "Methodology and sources · GCC-Nexus",
-  description: "How GCC-Nexus scores locations, models 5-year TCO, assesses talent and tax, and where every number comes from.",
+  title: "Methodology and sources · GCC Tracker",
+  description: "How GCC Tracker scores locations, models 5-year TCO, assesses talent and tax, and where every number comes from.",
 };
 
 const TCO_ASSUMPTIONS = [
@@ -32,7 +32,7 @@ export default function MethodologyPage() {
 
       <Card title="Independence">
         <ul className="list-disc space-y-1.5 pl-5 text-sm text-ink/85">
-          <li>GCC-Nexus does not sell set-up services, office space, recruitment or advisory, and takes no referral fees.</li>
+          <li>GCC Tracker does not sell set-up services, office space, recruitment or advisory, and takes no referral fees.</li>
           <li>No sign-up, email or sales call is needed for any page or tool.</li>
           <li>All models run in your browser. Scenarios live only in the page address; Benchmark entries are never uploaded or stored.</li>
           <li>Every assumption is listed below with its source, so you can disagree with a number and see exactly how it moves the answer.</li>
